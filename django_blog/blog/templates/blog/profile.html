@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+# Inherits from the base.html template.
+{% load static %}
+# Loads the static template tags.
+
+{% block content %}
+# Defines the content block.
+  <h2>Profile</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h3>User Information</h3>
+    {{ user_form.as_p }}
+    <h3>Profile Details</h3>
+    {{ profile_form.as_p }}
+    <button type="submit">Update Profile</button>
+  </form>
+  <p><a href="{% url 'logout' %}">Log out</a></p>
+{% endblock %}
+# Form for updating user and profile information, including CSRF protection and handling file uploads. Includes a logout link.

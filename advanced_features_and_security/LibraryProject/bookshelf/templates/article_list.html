@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Article List</title>
+</head>
+<body>
+    <h1>Articles</h1>
+    {% if articles %}
+        <ul>
+            {% for article in articles %}
+                <li>
+                    {{ article.title }} - <a href="{% url 'article_edit' article.pk %}">Edit</a> - <a href="{% url 'article_delete' article.pk %}">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No articles found.</p>
+    {% endif %}
+
+    <a href="{% url 'article_create' %}">Create New Article</a>
+</body>
+</html>

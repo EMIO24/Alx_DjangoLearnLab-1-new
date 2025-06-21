@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+# Inherits from the base.html template.
+
+{% block content %}
+# Defines the content block.
+  <h2>Register</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+  </form>
+  <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+{% endblock %}
+# Registration form with fields rendered as paragraphs, including CSRF protection and a link to the login page.
