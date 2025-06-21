@@ -1,0 +1,54 @@
+/* static/css/styles.css */
+
+/*
+  This file is for custom CSS that is not easily achievable with
+  Tailwind CSS utility classes or for specific overrides.
+  Prefer Tailwind classes directly in HTML where possible.
+*/
+
+/* Example: Custom scrollbar (optional, and might need vendor prefixes) */
+/*
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+*/
+
+/*
+  Ensure that any custom styles here are well-commented and
+  don't unnecessarily conflict with Tailwind's utility-first approach.
+  For instance, instead of setting padding here, use Tailwind's `p-4` class.
+*/
+
+/* Adjustments for min-height for content areas to push footer down */
+/* Apply this using `min-h-screen-minus-header-footer` class in HTML */
+@layer utilities {
+    .min-h-screen-minus-header-footer {
+        min-height: calc(100vh - 64px - 64px); /* Assuming header and footer are roughly 64px each */
+    }
+}
+
+/* Base body styles are in base.html <style> tags using @apply */
+
+/* PROSE styles for rich text content (like post.content) */
+/* You might want to install @tailwindcss/typography plugin for more robust prose styling */
+.prose h1 { @apply text-3xl font-extrabold mb-4; }
+.prose h2 { @apply text-2xl font-bold mt-6 mb-3; }
+.prose h3 { @apply text-xl font-semibold mt-5 mb-2; }
+.prose p { @apply mb-4 leading-relaxed; }
+.prose ul, .prose ol { @apply list-disc list-inside mb-4; }
+.prose li { @apply mb-1; }
+.prose a { @apply text-blue-600 hover:underline; }
+.prose strong { @apply font-bold; }
+.prose em { @apply italic; }
+

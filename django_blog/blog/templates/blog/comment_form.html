@@ -1,11 +1,24 @@
-{% extends 'blog/base.html' %}
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %} {# Load crispy forms tags #}
+
+{% block title %}Edit Comment - Django Blog{% endblock title %}
 
 {% block content %}
-  <h2>Edit Comment</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-    <a href="{% url 'post_detail' comment.post.pk %}" class="btn btn-secondary">Cancel</a>
-  </form>
-{% endblock %}
+<div class="flex items-center justify-center py-8">
+    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-6">Edit Comment</h2>
+        <p class="text-gray-700 text-center mb-4">Editing comment on: <span class="font-semibold">{{ comment.post.title }}</span></p>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }} {# Render the form using crispy forms #}
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mt-6">
+                Update Comment
+            </button>
+        </form>
+        <p class="text-center text-gray-600 mt-4">
+            <a href="{% url 'post_detail' comment.post.pk %}" class="text-blue-600 hover:underline">Cancel and Go Back to Post</a>
+        </p>
+    </div>
+</div>
+{% endblock content %}

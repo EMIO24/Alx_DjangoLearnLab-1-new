@@ -10,7 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-from pathlib import Path, os
+from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     'taggit',
     'blog',
     'crispy_forms',
+    'crispy_bootstrap5', 
+    'crispy_tailwind', 
 ]
 
 MIDDLEWARE = [
@@ -79,9 +82,9 @@ WSGI_APPLICATION = 'django_blog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'alx_book_store',
+        'NAME': 'portfolio',
         'USER': 'EMIO24',
-        'PASSWORD': 'Passion13.@1',
+        'PASSWORD': 'Passion13.',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -121,12 +124,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
 STATIC_URL = 'static/'
 
+# This is the directory where collectstatic will gather all static files
+# It should be OUTSIDE of your project's version control.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # Or 'static_cdn', 'production_static' etc.
 
+# This is where Django will look for static files in your project,
+# in addition to each app's static/ directory.
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'blog', 'static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 # Default primary key field type
@@ -136,3 +143,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Crispy Forms settings
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5" 
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"
+
+LOGIN_REDIRECT_URL = 'profile'
+LOGOUT_REDIRECT_URL = 'home'   

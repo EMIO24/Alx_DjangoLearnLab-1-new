@@ -1,19 +1,45 @@
-{% extends 'blog/base.html' %}
-# Inherits from the base.html template.
-{% load static %}
-# Loads the static template tags.
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %} {# Load crispy forms tags #}
+
+{% block title %}Profile - Django Blog{% endblock title %}
 
 {% block content %}
-# Defines the content block.
-  <h2>Profile</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <h3>User Information</h3>
-    {{ user_form.as_p }}
-    <h3>Profile Details</h3>
-    {{ profile_form.as_p }}
-    <button type="submit">Update Profile</button>
-  </form>
-  <p><a href="{% url 'logout' %}">Log out</a></p>
-{% endblock %}
-# Form for updating user and profile information, including CSRF protection and handling file uploads. Includes a logout link.
+<div class="flex items-center justify-center py-8">
+    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-6">User Profile</h2>
+
+        <div class="mb-8 text-center">
+            {% if user.profile.profile_picture %}
+                <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="w-32 h-32 rounded-full object-cover mx-auto mb-4 border-4 border-blue-200">
+            {% else %}
+                <img src="https://placehold.co/128x128/CCCCCC/333333?text=No+Pic" alt="Default Profile Picture" class="w-32 h-32 rounded-full object-cover mx-auto mb-4 border-4 border-blue-200">
+            {% endif %}
+            <h3 class="text-2xl font-semibold text-gray-900">{{ user.username }}</h3>
+            <p class="text-gray-600">{{ user.email }}</p>
+            {% if user.profile.bio %}
+                <p class="text-gray-700 mt-2">{{ user.profile.bio }}</p>
+            {% else %}
+                <p class="text-gray-500 mt-2 italic">No bio yet.</p>
+            {% endif %}
+        </div>
+
+        <form method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Update Profile Information</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="text-lg font-medium text-gray-700 mb-2">User Details</h4>
+                    {{ user_form|crispy }}
+                </div>
+                <div>
+                    <h4 class="text-lg font-medium text-gray-700 mb-2">Profile Details</h4>
+                    {{ profile_form|crispy }}
+                </div>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mt-6">
+                Update Profile
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

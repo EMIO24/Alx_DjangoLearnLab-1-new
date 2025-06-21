@@ -1,14 +1,22 @@
-{% extends 'blog/base.html' %}
-# Inherits from the base.html template.
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %} {# Load crispy forms tags for form rendering #}
+
+{% block title %}Register - Django Blog{% endblock title %}
 
 {% block content %}
-# Defines the content block.
-  <h2>Register</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-  </form>
-  <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
-{% endblock %}
-# Registration form with fields rendered as paragraphs, including CSRF protection and a link to the login page.
+<div class="flex items-center justify-center min-h-screen-minus-header-footer">
+    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-6">Register</h2>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }} {# Render the form using crispy forms #}
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mt-6">
+                Register
+            </button>
+        </form>
+        <p class="text-center text-gray-600 mt-4">
+            Already have an account? <a href="{% url 'login' %}" class="text-blue-600 hover:underline">Log In</a>
+        </p>
+    </div>
+</div>
+{% endblock content %}
